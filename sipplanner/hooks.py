@@ -148,12 +148,12 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 # 	"all": [
 # 		"sipplanner.tasks.all"
 # 	],
-# 	"daily": [
-# 		"sipplanner.tasks.daily"
+	# "daily": [
+		# "sipplanner.sipplanner.api.fetch_fund_data"
 # 	],
 # 	"hourly": [
 # 		"sipplanner.tasks.hourly"
@@ -163,8 +163,13 @@ app_license = "mit"
 # 	],
 # 	"monthly": [
 # 		"sipplanner.tasks.monthly"
-# 	],
-# }
+	# ]
+}
+
+on_session_creation = "sipplanner.sipplanner.api.fetch_fund_data"
+
+
+
 
 # Testing
 # -------

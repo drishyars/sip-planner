@@ -1,0 +1,94 @@
+{
+ "allow_comments": 0,
+ "allow_delete": 1,
+ "allow_edit": 1,
+ "allow_incomplete": 0,
+ "allow_multiple": 1,
+ "allow_print": 0,
+ "anonymous": 0,
+ "apply_document_permissions": 0,
+ "button_label": "Save",
+ "condition_json": "[]",
+ "creation": "2024-08-24 22:20:55.168554",
+ "doc_type": "SIP",
+ "docstatus": 0,
+ "doctype": "Web Form",
+ "idx": 0,
+ "is_standard": 1,
+ "list_columns": [
+  {
+   "fieldname": "fund_name",
+   "fieldtype": "Link",
+   "label": "Fund Name"
+  },
+  {
+   "fieldname": "frequency",
+   "fieldtype": "Select",
+   "label": "Frequency"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  }
+ ],
+ "list_title": "Your SIPs",
+ "login_required": 1,
+ "max_attachment_size": 0,
+ "modified": "2024-08-26 17:08:49.659755",
+ "modified_by": "user@gmail.com",
+ "module": "Sipplanner",
+ "name": "sip",
+ "owner": "user@gmail.com",
+ "published": 1,
+ "route": "sip",
+ "show_attachments": 0,
+ "show_list": 1,
+ "show_sidebar": 0,
+ "success_url": "/sip",
+ "title": "SIP",
+ "web_form_fields": [
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "fund_name",
+   "fieldtype": "Link",
+   "hidden": 0,
+   "label": "Fund Name",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "Fund",
+   "precision": "",
+   "read_only": 0,
+   "reqd": 1,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "frequency",
+   "fieldtype": "Select",
+   "hidden": 0,
+   "label": "Frequency",
+   "max_length": 0,
+   "max_value": 0,
+   "options": "Weekly\nMonthly",
+   "precision": "",
+   "read_only": 0,
+   "reqd": 1,
+   "show_in_filter": 0
+  },
+  {
+   "allow_read_on_all_link_options": 0,
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "hidden": 0,
+   "label": "Amount",
+   "max_length": 0,
+   "max_value": 0,
+   "precision": "",
+   "read_only": 0,
+   "reqd": 1,
+   "show_in_filter": 0
+  }
+ ],
+ "website_sidebar": ""
+}

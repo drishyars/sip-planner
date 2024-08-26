@@ -1,0 +1,111 @@
+{% extends "templates/web.html" %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block page_content %}
+	<!-- main card -->
+	<div class="web-list-container">
+		<!-- list -->
+		<div class="web-list-header">
+			<div class="web-list-title ellipsis">
+				<h1 class="ellipsis">{{ _(list_title or title) }}</h1>
+			</div>
+			<div class="web-list-actions">
+				{%- if allow_multiple -%}
+					<a class="btn btn-primary btn-sm button-new" href="/{{ route }}/new">{{ _("New") }}</a>
+				{%- endif -%}
+			</div>
+		</div>
+
+		<div class="web-list-filters hide"></div>
+		<div class="web-list-table"></div>
+		<div class="web-list-footer"></div>
+
+		<div class="row align-items-start" id=" ">
+			<div class="col">
+				<span style="font-size: large;">Profit:</span>
+				<label for="profitSlider" class="form-label" id="profitValue"
+					style="font-weight: bold; font-size: large;"></label>
+				<span style="font-size: large;">%</span><br>
+				<input type="range" class="form-range" min="0" max="100" step="1" id="profitSlider" value="12"
+				onchange="calculateAmount()" >
+			</div>
+			<div class="col">
+				<span style="font-size: large;">Duration:</span>
+				<label for="durationSlider" class="form-label" id="duration"
+					style="font-weight: bold; font-size: large;"></label>
+				<span style="font-size: large;">years</span><br>
+				<input type="range" class="form-range" min="1" max="50" step="1" id="durationSlider" value="25"
+				onchange="calculateAmount()">
+	
+			</div>
+			<div class="col">
+						
+			<span style="font-size: large;">Portfolio Value</span>
+			<p id="portfolioValue" style="font-weight: bold; color: green; font-size: large;"></p>
+			</div>
+	
+		</div>
+	</div>
+{% endblock page_content %}
+
+{% block script %}
+	<script>
+		frappe.boot = {{ boot }};
+		frappe._messages = {{ translated_messages }};
+		frappe.web_form_doc = {{ web_form_doc | json }};
+	</script>
+
+<script>
+
+	setInterval(calculateAmount, 1000);
+    
+    function calculateAmount(){
+        var weeklyAmount = 0.00;
+            var monthlyAmount = 0.00;
+            var year = $('#durationSlider').val();
+            var percentage = $('#profitSlider').val();
+            
+            $('#profitValue').html(percentage);
+            $('#duration').html(year);
+
+            percentage = (percentage / 100) + 1;
+
+			let sips = frappe.web_form_list.data
+            for (var i in sips) {
+
+                if (sips[i]["frequency"] === "Weekly") {
+                    weeklyAmount = weeklyAmount + parseFloat(sips[i]["amount"]);
+
+                } else {
+                    monthlyAmount = monthlyAmount + parseFloat(sips[i]["amount"]);
+                }
+            }
+            weeklyAmount = weeklyAmount * 5;
+
+            var amount = (weeklyAmount + monthlyAmount) * 12 * year;
+
+            amount = amount * percentage;
+            amount = amount.toFixed(2);
+            
+            var portfolioAmount = amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            portfolioAmount = '₹' + portfolioAmount;
+            // document.getElementById('portfolioValue').innerHTML = portfolioAmount;
+            $('#portfolioValue').html(portfolioAmount);
+
+    }
+</script>
+
+	{{ include_script("web_form.bundle.js") }}
+{% endblock script %}
+
+{% block style %}
+	<style>
+		{% if style is defined %}
+			{{ style }}
+		{% endif %}
+		{% if custom_css %}
+			{{ custom_css }}
+		{% endif %}
+	</style>
+{% endblock %}
